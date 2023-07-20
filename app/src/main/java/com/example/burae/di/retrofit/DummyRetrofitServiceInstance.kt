@@ -9,6 +9,9 @@ interface DummyRetrofitServiceInstance {
     @POST("auth/login")
     fun login(@Body user:User):Call<UserResponse>
 
+    @POST("carts/add")
+    fun addBasket(@Body mybaskets:BasketAddData):Call<BasketResultData>
+
     @GET("products")
     fun getAllProducts():Call<ProductData>
 

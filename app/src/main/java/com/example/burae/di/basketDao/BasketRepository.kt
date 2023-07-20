@@ -19,4 +19,16 @@ class BasketRepository @Inject constructor(private val basketDao: BasketDao) {
     fun getBasketWithProduct(bid:Int):BasketWithProduct{
         return basketDao.getBasketWithProduct(bid)
     }
+
+    fun getDistinctBasketWithProduct(bid:Int):List<BasketTotalData>{
+        return basketDao.getDistinctBasketWithProduct(bid)
+    }
+
+    fun deleteBasketByUserId(bid:Int){
+        basketDao.deleteBasketByUserId(bid)
+    }
+
+    fun updateProductCount(productCount:Int,pid:Long){
+        basketDao.updateProductCount(pid)
+    }
 }

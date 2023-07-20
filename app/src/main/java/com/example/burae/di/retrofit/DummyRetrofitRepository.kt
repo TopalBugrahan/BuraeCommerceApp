@@ -122,4 +122,22 @@ class DummyRetrofitRepository @Inject constructor(private val dummyRetrofitServi
         })
     }
 
+    fun addBasket(mybaskets:BasketAddData ,basketResultData: MutableLiveData<BasketResultData>){
+        return dummyRetrofitServiceInstance.addBasket(mybaskets).enqueue(object:Callback<BasketResultData>{
+            override fun onResponse(
+                call: Call<BasketResultData>,
+                response: Response<BasketResultData>
+            ) {
+                if(response.isSuccessful){
+                    basketResultData.postValue(response.body())
+                }
+            }
+
+            override fun onFailure(call: Call<BasketResultData>, t: Throwable) {
+                basketResultData.postValue(null)
+            }
+
+        })
+    }
+
 }

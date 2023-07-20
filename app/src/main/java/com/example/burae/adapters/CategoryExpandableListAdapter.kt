@@ -10,11 +10,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.burae.R
+import com.example.burae.interfaces.MainListSelectListener
 import com.example.burae.models.Category
 import com.example.burae.models.Product
 
 
-class CategoryExpandableListAdapter(private val context: Context, private val categoryList: List<Category>) : BaseExpandableListAdapter() {
+class CategoryExpandableListAdapter(private val context: Context, private val categoryList: List<Category>,private val listener:MainListSelectListener) : BaseExpandableListAdapter() {
 
     private val productsMap: MutableMap<String, List<Product>> = mutableMapOf()
 
@@ -116,6 +117,7 @@ class CategoryExpandableListAdapter(private val context: Context, private val ca
             recyclerView.layoutManager = layoutManager
             productAdapter.setList(products)
             recyclerView.adapter = productAdapter
+            productAdapter.setListener(listener)
         }
     }
 }

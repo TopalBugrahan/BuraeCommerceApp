@@ -5,7 +5,7 @@ import androidx.room.ForeignKey
 import androidx.room.ForeignKey.Companion.CASCADE
 import androidx.room.PrimaryKey
 
-@Entity(foreignKeys = [ForeignKey(entity = BasketData::class, parentColumns = ["bid"], childColumns = ["bid"], onDelete = CASCADE)])
+@Entity(foreignKeys = [ForeignKey(entity = BasketData::class, parentColumns = ["bid"], childColumns = ["bid"], onDelete = CASCADE)], tableName = "roomProduct")
 data class RoomProductData(
     @PrimaryKey(autoGenerate = true)
     val ProductId: Int,

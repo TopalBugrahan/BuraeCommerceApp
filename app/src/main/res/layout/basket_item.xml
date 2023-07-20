@@ -4,14 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="10dp"
+    android:layout_margin="10dp"
     android:orientation="horizontal">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="20dp"
-        app:cardBackgroundColor="@color/white">
+        app:cardBackgroundColor="@color/white"
+        android:padding="5dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -27,18 +28,48 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="6dp"
+                android:layout_marginLeft="10dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/basketTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Title"/>
+                    android:text="Title"
+                    android:layout_marginBottom="5dp"/>
 
-                <EditText
-                    android:id="@+id/basketCount"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="5dp"
+                    android:gravity="center">
+                    <Button
+                        android:id="@+id/btnDecrease"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:background="@color/appColor"
+                        android:layout_marginRight="5dp"
+                        android:text="-"/>
+                    <TextView
+                        android:id="@+id/basketCount"
+                        android:layout_width="50dp"
+                        android:textSize="20dp"
+                        android:layout_marginRight="5dp"
+                        android:textAlignment="center"
+                        android:text="19"
+                        android:layout_height="wrap_content"/>
+                    <Button
+                        android:id="@+id/btnIncrease"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:background="@color/appColor"
+                        android:layout_marginRight="5dp"
+                        android:text="+"/>
+
+
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/basketPrice"

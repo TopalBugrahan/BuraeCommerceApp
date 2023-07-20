@@ -14,7 +14,10 @@ import androidx.navigation.fragment.findNavController
 import com.example.burae.R
 import com.example.burae.databinding.FragmentAppIntroBinding
 import com.example.burae.databinding.FragmentMainBinding
+import com.example.burae.util.ParseMyString
 import com.example.burae.viewmodels.HomeViewModel
+import com.example.burae.viewmodels.MainViewModel
+import com.example.burae.viewmodels.SessionViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -27,6 +30,14 @@ class MainFragment : Fragment() {
     }*/
     private val homeViewModel: HomeViewModel by activityViewModels()
 
+    val sessionViewModel by lazy {
+        ViewModelProvider(this, defaultViewModelProviderFactory).get(SessionViewModel::class.java)
+    }
+
+    val mainViewModel by lazy {
+        ViewModelProvider(this, defaultViewModelProviderFactory).get(MainViewModel::class.java)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,6 +45,9 @@ class MainFragment : Fragment() {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
         val view = binding.root
 
+        val parseString= ParseMyString().stringToUserResponse(mainViewModel.getSession()!!)
+        val basketData=sessionViewModel.getDistinctBasketWithProduct(parseString!!.id)
+        homeViewModel.setData(basketData.size)
 
         setupBottomBar()
 
@@ -46,8 +60,13 @@ class MainFragment : Fragment() {
         homeViewModel.getObserverData().observe(viewLifecycleOwner,object :Observer<Int>{
             override fun onChanged(value: Int) {
                 //Log.d("sadasdasd",value.toString())
-                binding.bottomBar.showBadge(R.id.nav_basket,value)
-                //binding.bottomBar.dismissBadge(R.id.nav_basket)
+
+                if(value==0){
+                    binding.bottomBar.dismissBadge(R.id.nav_basket)
+                }
+                else{
+                    binding.bottomBar.showBadge(R.id.nav_basket,value)
+                }
             }
         })
     }

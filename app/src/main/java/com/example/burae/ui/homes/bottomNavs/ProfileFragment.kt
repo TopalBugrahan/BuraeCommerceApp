@@ -1,6 +1,7 @@
 package com.example.burae.ui.homes.bottomNavs
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,11 +10,15 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.example.burae.MainActivity
+import com.example.burae.R
 import com.example.burae.databinding.FragmentProfileBinding
 import com.example.burae.models.Address
 import com.example.burae.models.UserProfile
 import com.example.burae.models.UserResponse
 import com.example.burae.models.UserUpdateData
+import com.example.burae.ui.user.LoginFragment
 import com.example.burae.util.ParseMyString
 import com.example.burae.viewmodels.MainViewModel
 import com.example.burae.viewmodels.ProfileViewModel
@@ -100,6 +105,13 @@ class ProfileFragment : Fragment() {
                     userUpdateData
                 )
             }
+        }
+
+        binding.btnLogOut.setOnClickListener {
+            mainViewModel.deleteSession()
+            val intent= Intent(requireContext(),MainActivity::class.java)
+            startActivity(intent)
+            requireActivity().finish()
         }
 
         return view

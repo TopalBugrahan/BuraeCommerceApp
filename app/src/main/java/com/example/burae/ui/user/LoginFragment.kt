@@ -16,6 +16,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import com.example.burae.R
 import com.example.burae.databinding.FragmentLoginBinding
+import com.example.burae.di.basketDao.BasketData
 import com.example.burae.di.dao.SessionId
 import com.example.burae.models.User
 import com.example.burae.models.UserResponse
@@ -65,6 +66,7 @@ class LoginFragment : Fragment() {
                         val sessionId = SessionId(0, value.id)
                         //sessionViewModel.insertUser(sessionId)
                         viewModel.setSession(value.toString())
+                        sessionViewModel.insertBasket(BasketData(value.id,0))
                         findNavController().navigate(R.id.action_loginFragment_to_appIntroFragment)
                     }
                 }

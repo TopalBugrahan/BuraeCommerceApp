@@ -17,18 +17,8 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    val sessionViewModel by lazy{
-        ViewModelProvider(this,defaultViewModelProviderFactory).get(SessionViewModel::class.java)
-    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-
-        val data = sessionViewModel.getBasket()
-        if(data.size==0){
-            sessionViewModel.insertBasket(BasketData(0,0))
-        }
-
     }
 }

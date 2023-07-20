@@ -7,30 +7,37 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ExpandableListView
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.burae.R
 import com.example.burae.adapters.CategoryExpandableListAdapter
 import com.example.burae.databinding.FragmentBasketBinding
 import com.example.burae.databinding.FragmentCategoryBinding
+import com.example.burae.di.basketDao.RoomProductData
+import com.example.burae.interfaces.MainListSelectListener
 import com.example.burae.models.Category
+import com.example.burae.models.Product
 import com.example.burae.models.ProductData
+import com.example.burae.util.ParseMyString
 import com.example.burae.viewmodels.CategoryViewModel
 import com.example.burae.viewmodels.HomeViewModel
 import com.example.burae.viewmodels.MainViewModel
+import com.example.burae.viewmodels.SessionViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
 
 @AndroidEntryPoint
-class CategoryFragment : Fragment() {
+class CategoryFragment : Fragment(),MainListSelectListener {
     private var _binding: FragmentCategoryBinding? = null
     private val binding get() = _binding!!
     private lateinit var expandableListView: ExpandableListView
     private lateinit var expandableListAdapter: CategoryExpandableListAdapter
     private var categoryList: MutableList<Category> = mutableListOf()
     private var categoryName:String="null"
-    val homeViewModel by lazy {
-        ViewModelProvider(this, defaultViewModelProviderFactory).get(CategoryViewModel::class.java)
+    private val viewModel: HomeViewModel by activityViewModels()
+    val sessionViewModel by lazy {
+        ViewModelProvider(this, defaultViewModelProviderFactory).get(SessionViewModel::class.java)
     }
 
     val mainViewModel by lazy {
@@ -78,7 +85,7 @@ class CategoryFragment : Fragment() {
                     expandableListView = binding.expandableListView
 
                     expandableListAdapter =
-                        CategoryExpandableListAdapter(requireContext(), categoryList)
+                        CategoryExpandableListAdapter(requireContext(), categoryList,this@CategoryFragment)
                     expandableListView.setAdapter(expandableListAdapter)
 
 
@@ -106,6 +113,18 @@ class CategoryFragment : Fragment() {
     private fun loadProductsByCategory(categoryName: String) {
         mainViewModel.getCategoryProduct(categoryName)
         this.categoryName=categoryName
+    }
+
+    override fun onItemClick(product: Product) {
+        //Log.d("asdasd","asdasdas")
+        val parseString= ParseMyString().stringToUserResponse(mainViewModel.getSession()!!)
+        if(parseString!=null){
+            val myRoomProduct =
+                RoomProductData(0, product.id,parseString.id, product.title, product.images.get(0), 1, product.price)
+            sessionViewModel.insertProduct(myRoomProduct)
+            val basketData=sessionViewModel.getDistinctBasketWithProduct(parseString.id)
+            viewModel.setData(basketData.size)
+        }
     }
 
 

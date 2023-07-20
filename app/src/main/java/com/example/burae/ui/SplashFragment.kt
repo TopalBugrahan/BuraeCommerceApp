@@ -38,14 +38,16 @@ class SplashFragment : Fragment() {
 
 
         Handler(Looper.getMainLooper()).postDelayed({
-            //Log.d("session",sessionManager.getIsFirstRun().toString())
-            //sessionViewModel.
-            /*if (sessionManager.getIsFirstRun()) {
-                findNavController().navigate(R.id.action_splashFragment_to_appIntroFragment)
-            } else {
+            Log.d("session",sessionManager.getIsFirstRun().toString())
+
+            if(sessionManager.getIsFirstRun()!=null){
                 findNavController().navigate(R.id.action_splashFragment_to_mainFragment)
-            }*/
-            findNavController().navigate(R.id.action_splashFragment_to_mainFragment)
+            }
+            else{
+                findNavController().navigate(R.id.action_splashFragment_to_loginFragment)
+            }
+
+           //findNavController().navigate(R.id.action_splashFragment_to_mainFragment)
         }, 3000)
 
         return view

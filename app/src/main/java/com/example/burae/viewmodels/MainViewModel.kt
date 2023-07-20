@@ -21,6 +21,7 @@ class MainViewModel @Inject constructor(
     private var categoryProduct: MutableLiveData<ProductData>
     private var userProfile:MutableLiveData<UserProfile>
     private var isUserDataUpdate:MutableLiveData<Boolean>
+    private var basketResultData:MutableLiveData<BasketResultData>
 
     init {
         loginData = MutableLiveData()
@@ -29,6 +30,7 @@ class MainViewModel @Inject constructor(
         categorys= MutableLiveData()
         userProfile= MutableLiveData()
         isUserDataUpdate= MutableLiveData(false)
+        basketResultData= MutableLiveData()
     }
 
     fun getLoginObserverData(): MutableLiveData<UserResponse> {
@@ -56,12 +58,20 @@ class MainViewModel @Inject constructor(
         return isUserDataUpdate
     }
 
+    fun getBasketResultObserverData():MutableLiveData<BasketResultData>{
+        return basketResultData
+    }
+
     fun userLogin(user: User) {
         dummyRetrofitRepository.userLogin(user, loginData)
     }
 
     fun setSession(string: String) {
         sessionManager.setIsFirstRun(string)
+    }
+
+    fun deleteSession(){
+        sessionManager.deleteSession()
     }
 
     fun getSession(): String? {
@@ -90,5 +100,9 @@ class MainViewModel @Inject constructor(
 
     fun updateUserData(userId:Int,userUpdateData: UserUpdateData){
         dummyRetrofitRepository.updateUserData(userId,userUpdateData,isUserDataUpdate)
+    }
+
+    fun addBasket(basketAddData: BasketAddData){
+        dummyRetrofitRepository.addBasket(basketAddData,basketResultData)
     }
 }

@@ -19,6 +19,7 @@ import com.example.burae.viewmodels.SessionViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import com.example.burae.di.basketDao.RoomProductData
 import com.example.burae.models.ProductData
+import com.example.burae.util.ParseMyString
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(), MainListSelectListener {
@@ -81,11 +82,14 @@ class HomeFragment : Fragment(), MainListSelectListener {
     }
 
     override fun onItemClick(product: Product) {
-        this.count++
-        val myRoomProduct =
-            RoomProductData(0, product.id,1, product.title, product.images.get(0), 1, product.price)
-        sessionViewModel.insertProduct(myRoomProduct)
-        viewModel.setData(count)
+        val parseString=ParseMyString().stringToUserResponse(mainViewModel.getSession()!!)
+        if(parseString!=null){
+            val myRoomProduct =
+                RoomProductData(0, product.id,parseString.id, product.title, product.images.get(0), 1, product.price)
+            sessionViewModel.insertProduct(myRoomProduct)
+            val basketData=sessionViewModel.getDistinctBasketWithProduct(parseString.id)
+            viewModel.setData(basketData.size)
+        }
     }
 
 }

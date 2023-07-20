@@ -35,5 +35,17 @@ class SessionViewModel @Inject constructor(private val sessionRepositroy: Sessio
         return basketRepositroy.getBasket()
     }
 
+    fun getDistinctBasketWithProduct(bid:Int):List<BasketTotalData>{
+        return basketRepositroy.getDistinctBasketWithProduct(bid)
+    }
+
+    fun deleteBasketByUserId(bid:Int){
+        basketRepositroy.deleteBasketByUserId(bid)
+    }
+
+    fun updateProductCount(productCount:Int,pid:Long){
+        basketRepositroy.updateProductCount(productCount,pid)
+    }
+
 
 }
