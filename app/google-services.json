@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "618628740028",
+    "project_id": "burae-6fd4a",
+    "storage_bucket": "burae-6fd4a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:618628740028:android:dc1ee6c0bdf3679ba631b9",
+        "android_client_info": {
+          "package_name": "com.example.burae"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "618628740028-o2e24c69qid8njun2igqo189p50pnb0g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvhZO4cVgUqGH4MOLQO1EjkNQEUe10lGE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "618628740028-o2e24c69qid8njun2igqo189p50pnb0g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
